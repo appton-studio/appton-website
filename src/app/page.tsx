@@ -1,5 +1,73 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import apps from "../data/apps.json";
+
+function AnimatedLogos({ apps, animationClasses }: { apps: any[]; animationClasses: string[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [ellipse, setEllipse] = useState({ a: 40, b: 40 });
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    function updateEllipse() {
+      const width = containerRef.current?.offsetWidth || 0;
+      if (width < 400) {
+        setEllipse({ a: 28, b: 24 }); // mobile
+      } else if (width < 700) {
+        setEllipse({ a: 36, b: 32 }); // tablet
+      } else {
+        setEllipse({ a: 40, b: 40 }); // desktop
+      }
+    }
+    updateEllipse();
+    window.addEventListener("resize", updateEllipse);
+    return () => window.removeEventListener("resize", updateEllipse);
+  }, []);
+
+  if (!hasMounted) return null;
+
+  const n = apps.length;
+  const centerX = 50;
+  const centerY = 45;
+
+  return (
+    <div ref={containerRef} className="absolute inset-0">
+      {apps.map((app, i) => {
+        const angle = (2 * Math.PI * i) / n;
+        const left = centerX + ellipse.a * Math.cos(angle);
+        const top = centerY + ellipse.b * Math.sin(angle);
+        return (
+          <div
+            key={app.name}
+            className={`absolute ${animationClasses[i % animationClasses.length]}`}
+            style={{
+              left: `${left}%`,
+              top: `${top}%`,
+              transform: "translate(-50%, -50%)",
+              pointerEvents: "auto"
+            }}
+          >
+            <a href={app.link} target="_blank" rel="noopener noreferrer">
+              <div className="rounded-[18px] shadow-2xl ring-2 ring-white/30 p-1 bg-black/40 flex items-center justify-center">
+                <Image
+                  src={`/${app.image}`}
+                  alt={`${app.name} Logo`}
+                  width={50}
+                  height={50}
+                  className="w-12 h-12 object-contain rounded-[16px]"
+                />
+              </div>
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Home() {
   // Animation classes for variety
@@ -33,45 +101,7 @@ export default function Home() {
       </div>
       {/* Animation area fills the space above the title */}
       <div className="flex-1 w-full max-w-xl flex items-end justify-center relative pb-8" style={{ zIndex: 2 }}>
-        <div className="absolute inset-0">
-          {(() => {
-            const n = apps.length;
-            // Ellipse: center in the upper part of the area, fill 80% width and 80% height
-            const ellipseA = 40; // percent of width (horizontal radius)
-            const ellipseB = 40; // percent of height (vertical radius)
-            const centerX = 50;
-            const centerY = 45; // move ellipse center up so logos stay above the title
-            return apps.map((app, i) => {
-              const angle = (2 * Math.PI * i) / n;
-              const left = centerX + ellipseA * Math.cos(angle);
-              const top = centerY + ellipseB * Math.sin(angle);
-              return (
-                <div
-                  key={app.name}
-                  className={`absolute ${animationClasses[i % animationClasses.length]}`}
-                  style={{
-                    left: `${left}%`,
-                    top: `${top}%`,
-                    transform: "translate(-50%, -50%)",
-                    pointerEvents: "auto"
-                  }}
-                >
-                  <a href={app.link} target="_blank" rel="noopener noreferrer">
-                    <div className="rounded-[18px] shadow-2xl ring-2 ring-white/30 p-1 bg-black/40 flex items-center justify-center">
-                      <Image
-                        src={`/${app.image}`}
-                        alt={`${app.name} Logo`}
-                        width={50}
-                        height={50}
-                        className="w-12 h-12 object-contain rounded-[16px]"
-                      />
-                    </div>
-                  </a>
-                </div>
-              );
-            });
-          })()}
-        </div>
+        <AnimatedLogos apps={apps} animationClasses={animationClasses} />
       </div>
       {/* Title centered vertically */}
       <div className="flex flex-col items-center justify-center pt-8">
