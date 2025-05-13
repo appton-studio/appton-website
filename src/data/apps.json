@@ -1,23 +1,32 @@
 [
     {
-        "name": "Onira",
-        "subtitle": "AI-powered chatbots",
-        "description": "Onira is a platform for creating and sharing AI-powered chatbots. It allows users to create custom chatbots for their needs, and share them with others.",
+        "name": "Onira: Dream Diary & Analysis",
+        "subtitle": "Your Self-Discovery Journey",
+        "description": "Unlock the Meaning of Your Dreams. Onira is your personal dream journal app, designed to turn your nighttime visions into deep self-discovery. Thoughtfully crafted with serene aesthetics and neuroscience-backed insights, Onira helps you log, analyze, and interpret your dreams effortlessly.",
         "image": "onira_logo.png",
-        "link": "https://onira.com"
+        "link": "https://onira.me",
+        "appstore_link": "https://apps.apple.com/us/app/onira-dream-diary-analysis/id6740565077",
+        "playstore_link": "https://play.google.com/store/apps/details?id=me.onira.app",
+        "published": true
     },
     {
-        "name": "Rushmore",
-        "subtitle": "AI-powered chatbots",
-        "description": "Rushmore is a platform for creating and sharing AI-powered chatbots. It allows users to create custom chatbots for their needs, and share them with others.",
+        "name": "Rushmore: Photo Transformation",
+        "subtitle": "Cartoonify Your Memories",
+        "description": "Turn your favorite photos into unforgettable cartoons with Rushmore. Powered by cutting-edge AI, Rushmore transforms your selfies, couple photos, family moments, or even pets into vibrant cartoon artwork in just one tap",
         "image": "rushmore_logo.png",
-        "link": "https://rushmore.com"
+        "link": "https://rushmo.re",
+        "appstore_link": "https://apps.apple.com/app/id6469283622",
+        "playstore_link": "https://play.google.com/store/apps/details?id=com.onira.app",
+        "published": false
     },
     {
-        "name": "FoodWise",
-        "subtitle": "AI-powered chatbots",
-        "description": "Onira is a platform for creating and sharing AI-powered chatbots. It allows users to create custom chatbots for their needs, and share them with others.",
+        "name": "FoodWise: Easy Food Decisions",
+        "subtitle": "",
+        "description": "",
         "image": "foodwise_logo.png",
-        "link": "https://foodwise.com"
+        "link": "https://getfoodwise.com",
+        "appstore_link": "https://apps.apple.com/app/id6469283622",
+        "playstore_link": "https://play.google.com/store/apps/details?id=com.onira.app",
+        "published": false
     }
 ]

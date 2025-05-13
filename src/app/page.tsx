@@ -10,6 +10,9 @@ type App = {
   description: string;
   image: string;
   link: string;
+  published: boolean;
+  appstore_link: string;
+  playstore_link: string;
 };
 
 function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClasses: string[] }) {
@@ -93,7 +96,20 @@ function AppsShowcase({ apps }: { apps: App[] }) {
             <div className="text-2xl font-semibold text-white mb-2">{app.name}</div>
             <div className="text-lg text-gray-300 mb-2">{app.subtitle}</div>
             <div className="text-md text-gray-400 mb-4 max-w-md">{app.description}</div>
-            <a href={app.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold">Visit {app.name}</a>
+            <a href={app.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold mb-4">Visit {app.name}</a>
+            {/* Store links or Coming Soon */}
+            {app.published ? (
+              <div className="flex gap-4 mt-2">
+                <a href={app.appstore_link} target="_blank" rel="noopener noreferrer" title="App Store">
+                  <img src="/appstore.png" alt="App Store" className="h-8" />
+                </a>
+                <a href={app.playstore_link} target="_blank" rel="noopener noreferrer" title="Play Store">
+                  <img src="/playstore.png" alt="Play Store" className="h-8" />
+                </a>
+              </div>
+            ) : (
+              <div className="text-gray-500 text-sm mt-4">Coming Soon</div>
+            )}
           </div>
           {/* Logo on the right */}
           <div className="flex-1 flex flex-col items-center">
