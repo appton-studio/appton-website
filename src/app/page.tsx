@@ -218,14 +218,14 @@ export default function Home() {
   return (
     <>
       <div
-        className="h-screen w-full bg-cover bg-center bg-no-repeat relative flex flex-col items-center"
+        className="h-screen w-full bg-cover bg-center bg-no-repeat relative flex flex-col items-center animate-fade-in-up"
         style={{
           backgroundImage: 'url("/background.webp")'
         }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0C0C0C_80%)]" />
         {/* Navbar */}
-        <div className="relative flex items-center gap-12 z-30 pt-8 pb-4">
+        <div className="relative flex items-center gap-12 z-30 pt-8 pb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <a href="#apps" className="text-white text-sm font-medium hover:underline transition">OUR APPS</a>
           <Image
             src="/logo_appton.png"
@@ -238,21 +238,27 @@ export default function Home() {
           <a href="#contact" className="text-white text-sm font-medium hover:underline transition">CONTACT</a>
         </div>
         {/* Animation area fills the space above the title */}
-        <div className="flex-1 w-full max-w-xl flex items-end justify-center relative pb-8" style={{ zIndex: 2 }}>
+        <div className="flex-1 w-full max-w-xl flex items-end justify-center relative pb-8 animate-fade-in-up" style={{ zIndex: 2, animationDelay: '0.2s' }}>
           <AnimatedLogos apps={apps} animationClasses={animationClasses} />
         </div>
         {/* Title centered vertically */}
-        <div className="flex flex-col items-center justify-center pt-8">
+        <div className="flex flex-col items-center justify-center pt-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
           <h1 className="text-4xl font-bold text-white max-w-2xl text-center z-0 relative mb-8">
             We create apps that make life simpler, smarter, and more playful
           </h1>
         </div>
         {/* Spacer to push title to vertical center */}
-        <div className="flex-1" />
+        <div className="flex-1 animate-fade-in-up" style={{ animationDelay: '0.4s' }} />
       </div>
-      <AppsShowcase apps={apps} />
-      <ContactSection />
-      <Footer />
+      <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <AppsShowcase apps={apps} />
+      </div>
+      <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <ContactSection />
+      </div>
+      <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+        <Footer />
+      </div>
     </>
   );
 }
