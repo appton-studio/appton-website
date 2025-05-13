@@ -167,7 +167,7 @@ function ContactSection() {
         ))}
       </div>
       <a
-        href="mailto:contact@appleton.io"
+        href="mailto:contact@appton.io"
         className="px-8 py-3 bg-white hover:bg-gray-200 text-[#1C1C1C] font-bold rounded-full text-lg shadow-lg transition"
       >
         Contact us
