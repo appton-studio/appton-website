@@ -12,5 +12,12 @@
         "description": "Rushmore is a platform for creating and sharing AI-powered chatbots. It allows users to create custom chatbots for their needs, and share them with others.",
         "image": "rushmore_logo.png",
         "link": "https://rushmore.com"
+    },
+    {
+        "name": "FoodWise",
+        "subtitle": "AI-powered chatbots",
+        "description": "Onira is a platform for creating and sharing AI-powered chatbots. It allows users to create custom chatbots for their needs, and share them with others.",
+        "image": "foodwise_logo.png",
+        "link": "https://foodwise.com"
     }
 ]
