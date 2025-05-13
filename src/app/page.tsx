@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import apps from "../data/apps.json";
+import members from "../data/members.json";
 
 type App = {
   name: string;
@@ -92,7 +93,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
             <div className="text-2xl font-semibold text-white mb-2">{app.name}</div>
             <div className="text-lg text-gray-300 mb-2">{app.subtitle}</div>
             <div className="text-md text-gray-400 mb-4 max-w-md">{app.description}</div>
-            <a href={app.link} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">Visit {app.name}</a>
+            <a href={app.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold">Visit {app.name}</a>
           </div>
           {/* Logo on the right */}
           <div className="flex-1 flex flex-col items-center">
@@ -113,7 +114,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
             <button
               key={a.name}
               onClick={() => setSelected(i)}
-              className={`rounded-full p-1 border-2 ${i === selected ? 'border-blue-400' : 'border-transparent'} bg-black/40 transition`}
+              className={`rounded-full p-1 border-2 ${i === selected ? 'border-white' : 'border-transparent'} bg-black/40 transition`}
               style={{ outline: 'none' }}
             >
               <Image
@@ -128,6 +129,64 @@ function AppsShowcase({ apps }: { apps: App[] }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function ContactSection() {
+  return (
+    <section id="contact" className="relative z-0 w-full bg-[#0C0C0C] min-h-screen flex flex-col items-center justify-center py-16">
+      <h2 className="text-3xl font-bold text-white mb-12">Contact</h2>
+      <div className="flex flex-wrap justify-center gap-12 mb-12">
+        {members.map((member) => (
+          <div key={member.name} className="flex flex-col items-center bg-black/40 rounded-2xl p-6 shadow-lg">
+            <img
+              src={`/${member.image}`}
+              alt={member.name}
+              className="w-24 h-24 object-cover rounded-full mb-4 border-4 border-[#1C1C1C]"
+            />
+            <div className="text-lg font-semibold text-white mb-1">{member.name}</div>
+            <div className="text-sm text-gray-300 mb-2">{member.title}</div>
+            <a href={member.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold">LinkedIn</a>
+          </div>
+        ))}
+      </div>
+      <a
+        href="mailto:contact@appleton.io"
+        className="px-8 py-3 bg-white hover:bg-gray-200 text-[#1C1C1C] font-bold rounded-full text-lg shadow-lg transition"
+      >
+        Contact us
+      </a>
+    </section>
+  );
+}
+
+function Footer() {
+  // Import apps for logos
+  const appsData = apps;
+  return (
+    <footer className="w-full bg-[#0C0C0C] border-t border-[#1C1C1C] py-8 flex flex-col items-center justify-center text-center gap-4">
+      {/* Footer navigation links */}
+      <div className="flex gap-8 mb-2">
+        <a href="#apps" className="text-gray-300 hover:text-white text-sm font-medium transition">Our Apps</a>
+        <a href="#contact" className="text-gray-300 hover:text-white text-sm font-medium transition">Contact</a>
+      </div>
+      {/* App logos */}
+      <div className="flex gap-4 mb-2">
+        {appsData.map(app => (
+          <img
+            key={app.name}
+            src={`/${app.image}`}
+            alt={app.name}
+            className="w-8 h-8 object-contain rounded-xl bg-black/40 p-1 shadow"
+          />
+        ))}
+      </div>
+      <div className="text-white text-lg font-bold mb-2">Appton LLC</div>
+      <div className="text-gray-400 text-sm leading-relaxed">
+        701 Tillery Street Unit 12 Suite 3028, Austin<br />
+        Austin, TX 78702
+      </div>
+    </footer>
   );
 }
 
@@ -176,6 +235,8 @@ export default function Home() {
         <div className="flex-1" />
       </div>
       <AppsShowcase apps={apps} />
+      <ContactSection />
+      <Footer />
     </>
   );
 }

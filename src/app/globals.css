@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-secondary: #46511D;
 }
 
 @theme inline {
@@ -89,4 +90,9 @@ body {
 
 .animate-float-leftright {
   animation: float-leftright 18s ease-in-out infinite;
+}
+
+::selection {
+  background: var(--color-secondary);
+  color: #fff;
 }
