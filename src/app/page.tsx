@@ -3,7 +3,15 @@ import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import apps from "../data/apps.json";
 
-function AnimatedLogos({ apps, animationClasses }: { apps: any[]; animationClasses: string[] }) {
+type App = {
+  name: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  link: string;
+};
+
+function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClasses: string[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [ellipse, setEllipse] = useState({ a: 40, b: 40 });
   const [hasMounted, setHasMounted] = useState(false);
