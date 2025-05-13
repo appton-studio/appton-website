@@ -220,7 +220,7 @@ export default function Home() {
       <div
         className="h-screen w-full bg-cover bg-center bg-no-repeat relative flex flex-col items-center"
         style={{
-          backgroundImage: 'url("/background.png")'
+          backgroundImage: 'url("/background.webp")'
         }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0C0C0C_80%)]" />
