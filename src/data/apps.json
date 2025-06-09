@@ -15,9 +15,9 @@
         "description": "Turn your favorite photos into unforgettable cartoons with Rushmore. Powered by cutting-edge AI, Rushmore transforms your selfies, couple photos, family moments, or even pets into vibrant cartoon artwork in just one tap",
         "image": "rushmore_logo.png",
         "link": "https://rushmo.re",
-        "appstore_link": "https://apps.apple.com/app/id6469283622",
-        "playstore_link": "https://play.google.com/store/apps/details?id=com.onira.app",
-        "published": false
+        "appstore_link": "https://apps.apple.com/us/app/rushmore-photo-transformation/id6745264103",
+        "playstore_link": "https://play.google.com/store/apps/details?id=re.rushmo.app",
+        "published": true
     },
     {
         "name": "FoodWise: Easy Food Decisions",
