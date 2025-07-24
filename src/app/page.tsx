@@ -47,7 +47,7 @@ function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClass
   const centerY = 45;
 
   return (
-    <div ref={containerRef} className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0" role="presentation" aria-hidden="true">
       {apps.map((app, i) => {
         const angle = (2 * Math.PI * i) / n;
         const left = centerX + ellipse.a * Math.cos(angle);
@@ -63,7 +63,12 @@ function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClass
               pointerEvents: "auto"
             }}
           >
-            <a href={app.link} target="_blank" rel="noopener noreferrer">
+            <a
+              href={app.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${app.name} website`}
+            >
               <div className="rounded-[18px] shadow-2xl ring-2 ring-white/30 p-1 bg-black/40 flex items-center justify-center">
                 <Image
                   src={`/${app.image}`}
@@ -71,6 +76,7 @@ function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClass
                   width={50}
                   height={50}
                   className="w-12 h-12 object-contain rounded-[16px]"
+                  priority={i < 4} // Prioritize first 4 images
                 />
               </div>
             </a>
@@ -87,23 +93,45 @@ function AppsShowcase({ apps }: { apps: App[] }) {
 
   return (
     <section id="apps" className="relative z-0 w-full bg-[#0C0C0C] min-h-screen flex flex-col items-center justify-center py-16">
-      <h2 className="text-3xl font-bold text-white mb-12">Our Apps</h2>
+      <header>
+        <h2 className="text-3xl font-bold text-white mb-12">Our Apps</h2>
+      </header>
       <div className="flex flex-col items-center w-full max-w-4xl">
         {/* Two-column layout for info and logo */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-12 mb-8">
+        <article className="w-full flex flex-col md:flex-row items-center justify-center gap-12 mb-8">
           {/* Info on the left */}
           <div className="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
-            <div className="text-2xl font-semibold text-white mb-2">{app.name}</div>
-            <div className="text-lg text-gray-300 mb-2">{app.subtitle}</div>
-            <div className="text-md text-gray-400 mb-4 max-w-md">{app.description}</div>
-            <a href={app.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold mb-4">Visit {app.name}</a>
+            <h3 className="text-2xl font-semibold text-white mb-2">{app.name}</h3>
+            <p className="text-lg text-gray-300 mb-2">{app.subtitle}</p>
+            <p className="text-md text-gray-400 mb-4 max-w-md">{app.description}</p>
+            <a
+              href={app.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:underline text-sm font-bold mb-4"
+              aria-label={`Visit ${app.name} website`}
+            >
+              Visit {app.name}
+            </a>
             {/* Store links or Coming Soon */}
             {app.published ? (
-              <div className="flex gap-4 mt-2">
-                <a href={app.appstore_link} target="_blank" rel="noopener noreferrer" title="App Store">
+              <div className="flex gap-4 mt-2" role="group" aria-label="Download links">
+                <a
+                  href={app.appstore_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download on App Store"
+                  aria-label={`Download ${app.name} on App Store`}
+                >
                   <img src="/appstore.png" alt="App Store" className="h-8" />
                 </a>
-                <a href={app.playstore_link} target="_blank" rel="noopener noreferrer" title="Play Store">
+                <a
+                  href={app.playstore_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Download on Google Play"
+                  aria-label={`Download ${app.name} on Google Play`}
+                >
                   <img src="/playstore.png" alt="Play Store" className="h-8" />
                 </a>
               </div>
@@ -120,18 +148,22 @@ function AppsShowcase({ apps }: { apps: App[] }) {
                 width={128}
                 height={128}
                 className="w-32 h-32 object-contain rounded-[16px]"
+                priority
               />
             </div>
           </div>
-        </div>
+        </article>
         {/* Carousel */}
-        <div className="flex gap-4 mt-8 justify-center w-full">
+        <nav className="flex gap-4 mt-8 justify-center w-full" role="tablist" aria-label="App selection">
           {apps.map((a, i) => (
             <button
               key={a.name}
               onClick={() => setSelected(i)}
               className={`rounded-full p-1 border-2 ${i === selected ? 'border-white' : 'border-transparent'} bg-black/40 transition`}
               style={{ outline: 'none' }}
+              role="tab"
+              aria-selected={i === selected}
+              aria-label={`Select ${a.name} app`}
             >
               <Image
                 src={`/${a.image}`}
@@ -142,8 +174,39 @@ function AppsShowcase({ apps }: { apps: App[] }) {
               />
             </button>
           ))}
-        </div>
+        </nav>
       </div>
+
+      {/* Structured Data for Apps */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Appton Mobile Applications",
+            "description": "Collection of mobile applications created by Appton",
+            "itemListElement": apps.map((app, index) => ({
+              "@type": "SoftwareApplication",
+              "position": index + 1,
+              "name": app.name,
+              "description": app.description,
+              "applicationCategory": "MobileApplication",
+              "operatingSystem": "iOS, Android",
+              "url": app.link,
+              "image": `https://appton.io/${app.image}`,
+              "offers": app.published ? {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "url": app.appstore_link || app.playstore_link
+              } : {
+                "@type": "Offer",
+                "availability": "https://schema.org/PreOrder"
+              }
+            }))
+          })
+        }}
+      />
     </section>
   );
 }
@@ -151,24 +214,35 @@ function AppsShowcase({ apps }: { apps: App[] }) {
 function ContactSection() {
   return (
     <section id="contact" className="relative z-0 w-full bg-[#0C0C0C] min-h-screen flex flex-col items-center justify-center py-16">
-      <h2 className="text-3xl font-bold text-white mb-12">Contact</h2>
+      <header>
+        <h2 className="text-3xl font-bold text-white mb-12">Contact</h2>
+      </header>
       <div className="flex flex-wrap justify-center gap-12 mb-12">
         {members.map((member) => (
-          <div key={member.name} className="flex flex-col items-center bg-black/40 rounded-2xl p-6 shadow-lg">
+          <article key={member.name} className="flex flex-col items-center bg-black/40 rounded-2xl p-6 shadow-lg">
             <img
               src={`/${member.image}`}
-              alt={member.name}
+              alt={`${member.name} - ${member.title}`}
               className="w-24 h-24 object-cover rounded-full mb-4 border-4 border-[#1C1C1C]"
             />
-            <div className="text-lg font-semibold text-white mb-1">{member.name}</div>
-            <div className="text-sm text-gray-300 mb-2">{member.title}</div>
-            <a href={member.link} target="_blank" rel="noopener noreferrer" className="text-white hover:underline text-sm font-bold">LinkedIn</a>
-          </div>
+            <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
+            <p className="text-sm text-gray-300 mb-2">{member.title}</p>
+            <a
+              href={member.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:underline text-sm font-bold"
+              aria-label={`Connect with ${member.name} on LinkedIn`}
+            >
+              LinkedIn
+            </a>
+          </article>
         ))}
       </div>
       <a
         href="mailto:contact@appton.io"
         className="px-8 py-3 bg-white hover:bg-gray-200 text-[#1C1C1C] font-bold rounded-full text-lg shadow-lg transition"
+        aria-label="Send us an email"
       >
         Contact us
       </a>
@@ -182,12 +256,12 @@ function Footer() {
   return (
     <footer className="w-full bg-[#0C0C0C] border-t border-[#1C1C1C] py-8 flex flex-col items-center justify-center text-center gap-4">
       {/* Footer navigation links */}
-      <div className="flex gap-8 mb-2">
+      <nav className="flex gap-8 mb-2" aria-label="Footer navigation">
         <a href="#apps" className="text-gray-300 hover:text-white text-sm font-medium transition">Our Apps</a>
         <a href="#contact" className="text-gray-300 hover:text-white text-sm font-medium transition">Contact</a>
-      </div>
+      </nav>
       {/* App logos */}
-      <div className="flex gap-4 mb-2">
+      <div className="flex gap-4 mb-2" role="group" aria-label="Our applications">
         {appsData.map(app => (
           <img
             key={app.name}
@@ -197,11 +271,13 @@ function Footer() {
           />
         ))}
       </div>
-      <div className="text-white text-lg font-bold mb-2">Appton LLC</div>
-      <div className="text-gray-400 text-sm leading-relaxed">
-        701 Tillery Street Unit 12 Suite 3028, Austin<br />
-        Austin, TX 78702
-      </div>
+      <address className="not-italic">
+        <div className="text-white text-lg font-bold mb-2">Appton LLC</div>
+        <div className="text-gray-400 text-sm leading-relaxed">
+          701 Tillery Street Unit 12 Suite 3028, Austin<br />
+          Austin, TX 78702
+        </div>
+      </address>
     </footer>
   );
 }
@@ -216,16 +292,17 @@ export default function Home() {
   ];
 
   return (
-    <>
-      <div
+    <main>
+      <section
         className="h-screen w-full bg-cover bg-center bg-no-repeat relative flex flex-col items-center animate-fade-in-up"
         style={{
           backgroundImage: 'url("/background.webp")'
         }}
+        aria-label="Hero section"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0C0C0C_80%)]" />
         {/* Navbar */}
-        <div className="relative flex items-center gap-12 z-30 pt-8 pb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <nav className="relative flex items-center gap-12 z-30 pt-8 pb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }} aria-label="Main navigation">
           <a href="#apps" className="text-white text-sm font-medium hover:underline transition">OUR APPS</a>
           <Image
             src="/logo_appton.png"
@@ -236,7 +313,7 @@ export default function Home() {
             priority
           />
           <a href="#contact" className="text-white text-sm font-medium hover:underline transition">CONTACT</a>
-        </div>
+        </nav>
         {/* Animation area fills the space above the title */}
         <div className="flex-1 w-full max-w-xl flex items-end justify-center relative pb-8 animate-fade-in-up" style={{ zIndex: 2, animationDelay: '0.2s' }}>
           <AnimatedLogos apps={apps} animationClasses={animationClasses} />
@@ -249,7 +326,7 @@ export default function Home() {
         </div>
         {/* Spacer to push title to vertical center */}
         <div className="flex-1 animate-fade-in-up" style={{ animationDelay: '0.4s' }} />
-      </div>
+      </section>
       <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
         <AppsShowcase apps={apps} />
       </div>
@@ -259,6 +336,6 @@ export default function Home() {
       <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
         <Footer />
       </div>
-    </>
+    </main>
   );
 }

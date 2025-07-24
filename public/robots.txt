@@ -1,3 +1,19 @@
 User-agent: *
 Allow: /
-Sitemap: https://appton.io/sitemap.xml 
+
+# Sitemap location
+Sitemap: https://appton.io/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow any potential admin or private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Allow important resources
+Allow: /logo_appton.png
+Allow: /background.webp
+Allow: /favicon.ico
+Allow: /manifest.json 
