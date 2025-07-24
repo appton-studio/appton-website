@@ -92,13 +92,13 @@ function AppsShowcase({ apps }: { apps: App[] }) {
   const app = apps[selected];
 
   return (
-    <section id="apps" className="relative z-0 w-full bg-[#0C0C0C] min-h-screen flex flex-col items-center justify-center py-16">
+    <section id="apps" className="relative z-0 w-full bg-[#0C0C0C] h-screen flex flex-col items-center justify-center py-16">
       <header>
         <h2 className="text-3xl font-bold text-white mb-12">Our Apps</h2>
       </header>
-      <div className="flex flex-col items-center w-full max-w-4xl">
-        {/* Two-column layout for info and logo */}
-        <article className="w-full flex flex-col md:flex-row items-center justify-center gap-12 mb-8">
+      <div className="flex flex-col items-center w-full max-w-4xl flex-1 justify-center">
+        {/* App content with consistent spacing */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-12 mb-8">
           {/* Info on the left */}
           <div className="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
             <h3 className="text-2xl font-semibold text-white mb-2">{app.name}</h3>
@@ -125,15 +125,17 @@ function AppsShowcase({ apps }: { apps: App[] }) {
                 >
                   <img src="/appstore.png" alt="App Store" className="h-8" />
                 </a>
-                <a
-                  href={app.playstore_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Download on Google Play"
-                  aria-label={`Download ${app.name} on Google Play`}
-                >
-                  <img src="/playstore.png" alt="Play Store" className="h-8" />
-                </a>
+                {app.playstore_link && (
+                  <a
+                    href={app.playstore_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Download on Google Play"
+                    aria-label={`Download ${app.name} on Google Play`}
+                  >
+                    <img src="/playstore.png" alt="Play Store" className="h-8" />
+                  </a>
+                )}
               </div>
             ) : (
               <div className="text-gray-500 text-sm mt-4">Coming Soon</div>
@@ -141,7 +143,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
           </div>
           {/* Logo on the right */}
           <div className="flex-1 flex flex-col items-center">
-            <div className="rounded-[18px] shadow-2xl ring-2 ring-white/30 p-2 bg-black/40 flex items-center justify-center mb-4">
+            <div className="rounded-[18px] shadow-2xl ring-2 ring-white/30 p-2 bg-black/40 flex items-center justify-center">
               <Image
                 src={`/${app.image}`}
                 alt={`${app.name} Logo`}
@@ -152,61 +154,30 @@ function AppsShowcase({ apps }: { apps: App[] }) {
               />
             </div>
           </div>
-        </article>
-        {/* Carousel */}
-        <nav className="flex gap-4 mt-8 justify-center w-full" role="tablist" aria-label="App selection">
-          {apps.map((a, i) => (
-            <button
-              key={a.name}
-              onClick={() => setSelected(i)}
-              className={`rounded-full p-1 border-2 ${i === selected ? 'border-white' : 'border-transparent'} bg-black/40 transition`}
-              style={{ outline: 'none' }}
-              role="tab"
-              aria-selected={i === selected}
-              aria-label={`Select ${a.name} app`}
-            >
-              <Image
-                src={`/${a.image}`}
-                alt={a.name}
-                width={40}
-                height={40}
-                className="w-8 h-8 object-contain rounded-full"
-              />
-            </button>
-          ))}
-        </nav>
+        </div>
       </div>
-
-      {/* Structured Data for Apps */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Appton Mobile Applications",
-            "description": "Collection of mobile applications created by Appton",
-            "itemListElement": apps.map((app, index) => ({
-              "@type": "SoftwareApplication",
-              "position": index + 1,
-              "name": app.name,
-              "description": app.description,
-              "applicationCategory": "MobileApplication",
-              "operatingSystem": "iOS, Android",
-              "url": app.link,
-              "image": `https://appton.io/${app.image}`,
-              "offers": app.published ? {
-                "@type": "Offer",
-                "availability": "https://schema.org/InStock",
-                "url": app.appstore_link || app.playstore_link
-              } : {
-                "@type": "Offer",
-                "availability": "https://schema.org/PreOrder"
-              }
-            }))
-          })
-        }}
-      />
+      {/* Carousel */}
+      <nav className="flex gap-4 mt-8 justify-center w-full" role="tablist" aria-label="App selection">
+        {apps.map((a, i) => (
+          <button
+            key={a.name}
+            onClick={() => setSelected(i)}
+            className={`rounded-full p-1 border-2 ${i === selected ? 'border-white' : 'border-transparent'} bg-black/40 transition`}
+            style={{ outline: 'none' }}
+            role="tab"
+            aria-selected={i === selected}
+            aria-label={`Select ${a.name} app`}
+          >
+            <Image
+              src={`/${a.image}`}
+              alt={a.name}
+              width={40}
+              height={40}
+              className="w-8 h-8 object-contain rounded-full"
+            />
+          </button>
+        ))}
+      </nav>
     </section>
   );
 }

@@ -16,17 +16,17 @@
         "image": "rushmore_logo.png",
         "link": "https://rushmo.re",
         "appstore_link": "https://apps.apple.com/us/app/rushmore-photo-transformation/id6745264103",
-        "playstore_link": "https://play.google.com/store/apps/details?id=re.rushmo.app",
+        "playstore_link": "",
         "published": true
     },
     {
         "name": "FoodWise: Easy Food Decisions",
-        "subtitle": "",
-        "description": "",
+        "subtitle": "Smarter Meals in Seconds",
+        "description": "FoodWise helps you make better food choices by instantly analyzing menus, groceries, and meals through your camera. Get personalized nutritional insights tailored to your health goals, compare options, and make informed decisions anywhere. Whether at restaurants, supermarkets, or home, FoodWise empowers you to take control of your health with every bite.",
         "image": "foodwise_logo.png",
         "link": "https://getfoodwise.com",
-        "appstore_link": "https://apps.apple.com/app/id6469283622",
-        "playstore_link": "https://play.google.com/store/apps/details?id=com.onira.app",
-        "published": false
+        "appstore_link": "https://apps.apple.com/us/app/foodwise-easy-food-decisions/id6743760014",
+        "playstore_link": "",
+        "published": true
     }
 ]
