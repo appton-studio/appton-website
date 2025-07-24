@@ -228,8 +228,26 @@ function Footer() {
     <footer className="w-full bg-[#0C0C0C] border-t border-[#1C1C1C] py-8 flex flex-col items-center justify-center text-center gap-4">
       {/* Footer navigation links */}
       <nav className="flex gap-8 mb-2" aria-label="Footer navigation">
-        <a href="#apps" className="text-gray-300 hover:text-white text-sm font-medium transition">Our Apps</a>
-        <a href="#contact" className="text-gray-300 hover:text-white text-sm font-medium transition">Contact</a>
+        <a
+          href="#apps"
+          className="text-gray-300 hover:text-white text-sm font-medium transition cursor-pointer"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Our Apps
+        </a>
+        <a
+          href="#contact"
+          className="text-gray-300 hover:text-white text-sm font-medium transition cursor-pointer"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Contact
+        </a>
       </nav>
       {/* App logos */}
       <div className="flex gap-4 mb-2" role="group" aria-label="Our applications">
@@ -274,7 +292,16 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0C0C0C_80%)]" />
         {/* Navbar */}
         <nav className="relative flex items-center gap-12 z-30 pt-8 pb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }} aria-label="Main navigation">
-          <a href="#apps" className="text-white text-sm font-medium hover:underline transition">OUR APPS</a>
+          <a
+            href="#apps"
+            className="text-white text-sm font-medium hover:underline transition cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            OUR APPS
+          </a>
           <Image
             src="/logo_appton.png"
             alt="Appton Logo"
@@ -283,7 +310,16 @@ export default function Home() {
             className="max-h-[50px] w-auto"
             priority
           />
-          <a href="#contact" className="text-white text-sm font-medium hover:underline transition">CONTACT</a>
+          <a
+            href="#contact"
+            className="text-white text-sm font-medium hover:underline transition cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            CONTACT
+          </a>
         </nav>
         {/* Animation area fills the space above the title */}
         <div className="flex-1 w-full max-w-xl flex items-end justify-center relative pb-8 animate-fade-in-up" style={{ zIndex: 2, animationDelay: '0.2s' }}>
