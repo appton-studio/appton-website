@@ -50,8 +50,9 @@ function AnimatedLogos({ apps, animationClasses }: { apps: App[]; animationClass
     <div ref={containerRef} className="absolute inset-0" role="presentation" aria-hidden="true">
       {apps.map((app, i) => {
         const angle = (2 * Math.PI * i) / n;
-        const left = centerX + ellipse.a * Math.cos(angle);
-        const top = centerY + ellipse.b * Math.sin(angle);
+        // A single logo sits in the center instead of on the ellipse
+        const left = n === 1 ? centerX : centerX + ellipse.a * Math.cos(angle);
+        const top = n === 1 ? centerY : centerY + ellipse.b * Math.sin(angle);
         return (
           <div
             key={app.name}
@@ -125,7 +126,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
                 >
                   <img src="/appstore.png" alt="App Store" className="h-8" />
                 </a>
-                {app.playstore_link && (
+                {app.playstore_link ? (
                   <a
                     href={app.playstore_link}
                     target="_blank"
@@ -135,6 +136,13 @@ function AppsShowcase({ apps }: { apps: App[] }) {
                   >
                     <img src="/playstore.png" alt="Play Store" className="h-8" />
                   </a>
+                ) : (
+                  <div className="relative" title="Coming soon to Android" aria-label={`${app.name} coming soon to Android`}>
+                    <img src="/playstore.png" alt="" className="h-8 opacity-40 grayscale" />
+                    <span className="absolute -top-2 -right-2 rounded-full bg-white px-2 py-0.5 text-[10px] font-bold uppercase text-[#1C1C1C] shadow">
+                      Soon
+                    </span>
+                  </div>
                 )}
               </div>
             ) : (
@@ -157,7 +165,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
         </div>
       </div>
       {/* Carousel */}
-      <nav className="flex gap-4 mt-8 justify-center w-full" role="tablist" aria-label="App selection">
+      {apps.length > 1 && <nav className="flex gap-4 mt-8 justify-center w-full" role="tablist" aria-label="App selection">
         {apps.map((a, i) => (
           <button
             key={a.name}
@@ -177,7 +185,7 @@ function AppsShowcase({ apps }: { apps: App[] }) {
             />
           </button>
         ))}
-      </nav>
+      </nav>}
     </section>
   );
 }

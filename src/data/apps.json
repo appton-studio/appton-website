@@ -1,31 +1,11 @@
 [
     {
-        "name": "Onira: Dream Diary & Analysis",
-        "subtitle": "Your Self-Discovery Journey",
-        "description": "Unlock the Meaning of Your Dreams. Onira is your personal dream journal app, designed to turn your nighttime visions into deep self-discovery. Thoughtfully crafted with serene aesthetics and neuroscience-backed insights, Onira helps you log, analyze, and interpret your dreams effortlessly.",
-        "image": "onira_logo.png",
-        "link": "https://onira.me",
-        "appstore_link": "https://apps.apple.com/us/app/onira-dream-diary-analysis/id6740565077",
-        "playstore_link": "https://play.google.com/store/apps/details?id=me.onira.app",
-        "published": true
-    },
-    {
-        "name": "Rushmore: Photo Transformation",
-        "subtitle": "Cartoonify Your Memories",
-        "description": "Turn your favorite photos into unforgettable cartoons with Rushmore. Powered by cutting-edge AI, Rushmore transforms your selfies, couple photos, family moments, or even pets into vibrant cartoon artwork in just one tap",
-        "image": "rushmore_logo.png",
-        "link": "https://rushmo.re",
-        "appstore_link": "https://apps.apple.com/us/app/rushmore-photo-transformation/id6745264103",
-        "playstore_link": "",
-        "published": true
-    },
-    {
-        "name": "FoodWise: Easy Food Decisions",
-        "subtitle": "Smarter Meals in Seconds",
-        "description": "FoodWise helps you make better food choices by instantly analyzing menus, groceries, and meals through your camera. Get personalized nutritional insights tailored to your health goals, compare options, and make informed decisions anywhere. Whether at restaurants, supermarkets, or home, FoodWise empowers you to take control of your health with every bite.",
-        "image": "foodwise_logo.png",
-        "link": "https://getfoodwise.com",
-        "appstore_link": "https://apps.apple.com/us/app/foodwise-easy-food-decisions/id6743760014",
+        "name": "Neura: Dream Diary & Analysis",
+        "subtitle": "Understand Your Dreams. Discover Yourself.",
+        "description": "Neura is an AI-powered dream journal that turns your dreams into clear, personal, and actionable insights, rooted in psychology and neuroscience. Log your dreams effortlessly, explore their symbols, and uncover what they reveal about you.",
+        "image": "neura_logo.png",
+        "link": "https://neuradecode.com",
+        "appstore_link": "https://apps.apple.com/us/app/neura-dream-diary-analysis/id6740565077",
         "playstore_link": "",
         "published": true
     }
